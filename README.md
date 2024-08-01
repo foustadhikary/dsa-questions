@@ -19,29 +19,12 @@ Each folder corresponds to a specific data structure or algorithm category, cont
 Solved Problems
 Arrays
 
-Problem 1: Description
-Problem 2: Description
-...
-Linked Lists
 
-Problem 1: Description
-Problem 2: Description
-...
-Trees
-
-Problem 1: Description
-Problem 2: Description
-...
-Graphs
-
-Problem 1: Description
-Problem 2: Description
-...
-Languages and Tools
+# Languages and Tools
 C++: Primary language used for solving problems.
 Git: Version control.
 IDE: Visual Studio Code, CLion, or any other C++ IDE.
-How to Use
+# How to Use
 Clone the repository:
 
 bash
@@ -49,25 +32,28 @@ Copy code
 git clone https://github.com/yourusername/dsa-questions.git
 Navigate to a problem directory:
 
-bash
+# bash
 Copy code
 cd dsa-questions/arrays
 Compile and run the solution:
 
-bash
+# bash
 Copy code
 g++ problem1.cpp -o problem1
 ./problem1
-Contributing
+# Contributing
 Contributions are welcome! If you have a better solution or an additional problem, feel free to submit a pull request.
 
-Fork the repository
+# Fork the repository
 Create a new branch (git checkout -b feature-branch)
 Commit your changes (git commit -m 'Add some feature')
 Push to the branch (git push origin feature-branch)
 Open a pull request
-Resources
+
+# Resources
 Here are some useful resources for learning DSA:
 
+Codeforces https://codeforces.com/
 GeeksforGeeks
-LeetCode
+LeetCode 
+CP- Algorithm https://cp-algorithms.com/
