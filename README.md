@@ -26,18 +26,19 @@ Git: Version control.
 IDE: Visual Studio Code, CLion, or any other C++ IDE.
 # How to Use
 Clone the repository:
+git clone https://github.com/yourusername/dsa-questions.git
 
-bash
 Copy code
 git clone https://github.com/yourusername/dsa-questions.git
 Navigate to a problem directory:
 
-# bash
+
+
 Copy code
 cd dsa-questions/arrays
 Compile and run the solution:
 
-# bash
+
 Copy code
 g++ problem1.cpp -o problem1
 ./problem1
