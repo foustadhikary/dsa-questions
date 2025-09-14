@@ -1,0 +1,151 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+template<typename A, typename B>
+ostream& operator<<(ostream &os, const pair<A, B> &p) {
+    return os << '(' << p.first << ", " << p.second << ')';
+}
+ 
+template<typename T_container, typename T = typename enable_if<!is_same<T_container, string>::value,
+                      typename T_container::value_type>::type>
+ostream& operator<<(ostream &os, const T_container &v) {
+    os << '{';
+    string sep;
+    for (const T &x : v) os << sep << x, sep = ", ";
+    return os << '}';
+}
+ 
+void dbg_out() { cerr << endl; }
+ 
+template<typename Head, typename... Tail>
+void dbg_out(Head H, Tail... T) {
+    cerr << ' ' << H;
+    dbg_out(T...);
+}
+ 
+#ifdef LOCAL
+#define dbg(...) cerr << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
+#else
+#define dbg(...)
+#endif
+
+#define vii vector<int>
+#define vll vector<long long>
+#define ar array
+#define ll long long
+#define ld long double
+#define sza(x) ((int)(x).size())
+#define all(a) (a).begin(), (a).end()
+ 
+const int MAX_N = 1e5 + 5;
+const ll MOD = 1e9 + 7;
+const ll INF = 1e18;
+const ld EPS = 1e-9;
+// const int INF=1e9;
+struct cell{
+    int r,c;
+};
+
+const int MX_HW=200005; 
+
+ll fact[MX_HW];
+ll inv[MX_HW];
+ll calculatePow(ll base, ll exp) {
+    if (exp == 0) {
+        return 1;
+    }
+    long long temp = calculatePow(base, exp / 2);
+    long long result = (temp * temp) % MOD;
+    if (exp % 2 == 1) {
+        result = (result * base) % MOD;
+    }
+    return result;
+}
+ll calculateModInv(int n){
+    return calculatePow(n , MOD-2);
+}
+void precompute(int n){
+    fact[0]=1;
+    inv[0]=1;
+    for(int i=1;i<=n;i++){
+        fact[i]=(fact[i-1]*i)%MOD;
+    }
+
+    inv[n]=calculateModInv(fact[n]);
+    for(int i=n-1;i>=1;i--){
+        inv[i]=(inv[i+1]*(i+1))%MOD;
+
+    }
+}
+ll nCr(int n, int r) {
+    if (r < 0 || r > n) {
+        return 0; 
+    }
+    ll numerator = fact[n];
+    ll denominator = (inv[r] * inv[n - r]) % MOD;
+    return (numerator * denominator) % MOD;
+}
+bool comp(const cell &a,const cell &b){
+    if(a.r!=b.r)return a.r<b.r;
+    else{
+       return a.c<b.c;
+    }
+}
+
+void solve() {
+    int h, w, n;
+    cin >> h >> w >> n;
+    vector<cell> blackCell(n); 
+    for (int i = 0; i < n; i++) {
+       cin>>blackCell[i].r>>blackCell[i].c;
+    }
+    blackCell.push_back({h,w});
+    sort(all(blackCell),comp);
+
+    precompute(h+w);
+
+    vll dp(blackCell.size());
+
+    for( int i=0;i<blackCell.size();i++){
+        int currR=blackCell[i].r;
+        int currC=blackCell[i].c;
+
+        ll totalPath=nCr(currR-1+currC-1, currR-1);
+        ll wrongPath=0;
+        for(int j=0;j<i;j++){
+            int prevR=blackCell[j].r;
+            int prevC=blackCell[j].c;
+            if(prevR<=currR && prevC<=currC){
+                int dx=currR-prevR;
+                int dy=currC-prevC;
+
+                ll pathFromPrev=nCr(dx+dy,dx);
+                
+
+           ll temp=(dp[j]*pathFromPrev)%MOD;
+             wrongPath=(temp+wrongPath)%MOD;
+            }   
+        }
+        dp[i] = (totalPath - wrongPath + MOD) % MOD;
+    }
+    cout<<dp.back()<<endl;
+}
+int main() {
+    // Fast I/O
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t=1;
+   
+    while (t--) {
+       solve();
+    
+    }
+   
+    return 0;
+}
+
+// maximize the minimun
+// minimize the maximum
+// least possible score
+//authoe :moody 
